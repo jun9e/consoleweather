@@ -1,16 +1,23 @@
 require 'open-uri'
 require 'json'
 
-print 'Where would you like to travel today?'
-location = gets.chomp.capitalize
+def ask_location
+	print 'Where would you like to travel today?'
+	gets.chomp.capitalize
+end
 
-file = open("http://api.openweathermap.org/data/2.5/weather?q=" + location)
-contents = file.read
+def weather_data(city)
+	file = open("http://api.openweathermap.org/data/2.5/weather?q=" + city)
+	contents = file.read
+	parsed = JSON.parse(contents)
+	weather = parsed["weather"]
+	weather[0].fetch('description')
+end
 
+def weather_output(x,y)
+	"The weather in #{ x } is : #{y}"
+end
 
-parsed = JSON.parse(contents)
-
-weather = parsed["weather"]
-weather_description = weather[0].fetch('description')
-
-puts "The weather in #{ location } is : #{weather_description}"
+location = ask_location
+city_weather_description = weather_data(location)
+puts weather_output(location, city_weather_description)
