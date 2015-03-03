@@ -3,8 +3,8 @@ require 'json'
 
 def ask_location
 	print "Where would you like to travel today?\n"
-	answer = gets.chomp.split(',')
-	# answer = "paris, berlin, london".split(',')
+	# answer = gets.chomp.split(',')
+	answer = "paris, berlin, london".split(',')
 	answer.map! do |city|
 		city.strip.capitalize
 	end
@@ -32,7 +32,6 @@ def format_table(rows)
 	
 	rows.each do |row|
 		print_single_row(row)
-		puts row.class
 		puts "--------------------------------------------------------------------"
 	end
 end
